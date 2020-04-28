@@ -9,14 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $phone = $_REQUEST['phone'];
     $password = $_REQUEST['password'];
 
-    if (checkRegex($email,$phone,$password)){
-        $user = new User($name, $email, $phone,$password);
-        $userManager = new UserManager("../data/data.json");
+    try {
+        if (isValidEmail($email) && isValidPhoneNumber($phone) && isValidPassword($password)){
+            $user = new User($name, $email, $phone,$password);
+            $userManager = new UserManager("../data/data.json");
 
-        $userManager->add($user);
-        header("Location: ../index.php");
-    }else{
-        header("Location: ../view/register_form.php");
-    }
+            $userManager->add($user);
+            header("Location: ../index.php");
+        }
+    }catch (Exception $e){
+        echo $e->getMessage();
+//        header("Location: ../view/register_form.php");
+    };
+
 
 }
