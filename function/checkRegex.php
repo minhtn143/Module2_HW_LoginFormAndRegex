@@ -3,8 +3,8 @@
 function isValidEmail($email)
 {
     $regexEmail = '/^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/';
-    if (preg_match($regexEmail,$email)){
-        throw new Exception('Invalid Email format(xxx@xxxx.com)');
+    if (!preg_match($regexEmail,$email)){
+        throw new Exception('Invalid Email format(xxx@xxx.com)');
         return false;
     }
     return true;
